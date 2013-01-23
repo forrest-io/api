@@ -9,3 +9,11 @@ end
 get '/players/:name' do
   erb :"players/#{params[:name]}"
 end
+
+get '/results' do
+  erb :results
+end
+
+get '/results/:id' do
+  erb :"results/#{params[:id]}"
+end
