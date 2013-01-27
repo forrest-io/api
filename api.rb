@@ -2,6 +2,8 @@ require 'sinatra'
 
 set :erb, :content_type => 'application/json'
 
+before { @prefix = ENV["URL_PREFIX"] }
+
 get '/players' do
   erb :players
 end
