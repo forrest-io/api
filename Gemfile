@@ -6,6 +6,7 @@ end
 
 group :test do
   gem 'rest-client'
+  gem 'json'
   gem 'rspec'
   gem 'turnip'
 end
