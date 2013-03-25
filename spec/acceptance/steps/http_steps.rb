@@ -14,18 +14,12 @@ step "I DELETE :url" do |url|
   @response = resource_for(url).delete
 end
 
-step "I should receive a HTTP :code :status response" do |code, status|
+step "I should receive a HTTP :code response" do |code|
   @response.code.should == code
 end
 
-step "a Location header should be available" do |header|
-  @response.headers[:location].should_not be_nil
-end
-
-step "I follow the Location header" do
-  location_url = @response.headers[:location]
-  resource = RestClient::Resource.new location_url
-  @json = JSON.parse(resource.get)
+step "the Location header should point to :url" do |url|
+  @response.headers[:location].should == url
 end
 
 def resource_for(relative_url)

@@ -1,11 +1,7 @@
-step "a player named :name exists" do |name|
-  resource_for("/players").post({ :name => name }.to_json, :content_type => :json)
+step "a player named :name exists at :url" do |name, url|
+  resource_for(url).post({ :name => name }.to_json, :content_type => :json)
 end
 
-step ":player should no longer exist" do |player|
-  resource_for("/players/#{name.downcase}").get.code.should == 404
-end
-
-step ":name should have the following details:" do |name, details|
-  details == @json
+step "the player should have the following details:" do |details|
+  details.should == @json
 end
