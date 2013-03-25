@@ -1,5 +1,8 @@
 source :rubygems
 
+gem 'curator'
+gem 'mongo'
+
 group :development do
   gem 'rake'
 end
