@@ -2,9 +2,10 @@ require 'spec_helper'
 require 'app/models/player'
 
 describe Player do
-  subject { Player.new name: name, email: email }
-  let(:name) { 'James' }
-  let(:email) { 'james@forrest.io' }
+  subject { Player.new name: name, email: email, slug: slug }
+  let(:name) { 'Default Player' }
+  let(:email) { 'default@forrest.io' }
+  let(:slug) { 'default-player' }
 
   describe '#valid?' do
     context 'true when name is present' do
@@ -13,8 +14,22 @@ describe Player do
     end
 
     context 'false when name is nil' do
-      let(:name) { nil }
+      let(:name) { '' }
       its(:valid?) { should == false }
+    end
+  end
+
+  describe '#slug' do
+    context 'implicit' do
+      let(:name) { 'James Ottaway' }
+      let(:slug) { nil }
+      its(:slug) { should == 'james-ottaway' }
+    end
+
+    context 'explicit' do
+      let(:name) { 'Default Player' }
+      let(:slug) { 'fubar' }
+      its(:slug) { should == 'fubar' }
     end
   end
 end

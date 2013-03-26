@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'curator'
 gem 'mongo'
 
+gem 'babosa'
+
 group :development do
   gem 'rake'
 end
