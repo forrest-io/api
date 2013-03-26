@@ -1,5 +1,5 @@
+require 'spec_helper'
 require 'spec/repositories/spec_helper'
-require 'app/repositories/player_repository'
 
 describe PlayerRepository do
   let(:ant) { Player.new name: 'Ant' }

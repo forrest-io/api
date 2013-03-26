@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'app/models/player'
 
 describe Player do
   subject { Player.new name: name, email: email, slug: slug }
