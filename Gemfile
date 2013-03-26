@@ -7,6 +7,7 @@ gem 'babosa'
 
 group :development do
   gem 'rake'
+  gem 'pry'
 end
 
 group :test do
