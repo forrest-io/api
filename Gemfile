@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'grape'
 gem 'curator'
 gem 'mongo'
 
@@ -15,4 +16,5 @@ group :test do
   gem 'json'
   gem 'rspec'
   gem 'turnip'
+  gem 'rack-test'
 end
