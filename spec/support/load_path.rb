@@ -1,1 +1,0 @@
-$LOAD_PATH.unshift(APP_ROOT)
