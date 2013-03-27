@@ -14,6 +14,12 @@ class Player
     super(args)
   end
 
+  def update(params)
+    params.each do |attribute, value|
+      self.send("#{attribute}=", value) if self.respond_to?("#{attribute}=")
+    end
+  end
+
   def to_json(state=nil)
     { name: name, email: email }.to_json
   end

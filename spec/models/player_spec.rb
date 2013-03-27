@@ -33,4 +33,17 @@ describe Player do
       its(:slug) { should == 'fubar' }
     end
   end
+
+  describe '#update' do
+    context 'valid attribute' do
+      before { player.update(params) }
+      let(:params) { { email: 'james@forrest.io' } }
+      its(:email) { should == 'james@forrest.io' }
+    end
+
+    context 'invalid attribute' do
+      let(:params) { { foo: 'bar' } }
+      specify { expect { player.update(params) }.to_not raise_error }
+    end
+  end
 end

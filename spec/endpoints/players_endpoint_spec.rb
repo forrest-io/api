@@ -101,6 +101,22 @@ describe PlayersEndpoint do
     end
   end
 
+  describe 'PATCH /players' do
+    it 'updates a Player' do
+      PlayerRepository.save(Player.new(name: 'James', slug: 'james'))
+
+      get '/players/james'
+      player = JSON.parse(last_response.body)
+      player['email'].should == nil
+
+      patch '/players/james', email: 'james@forrest.io'
+
+      get '/players/james'
+      player = JSON.parse(last_response.body)
+      player['email'].should == 'james@forrest.io'
+    end
+  end
+
   describe 'DELETE /players/:slug' do
     it 'deletes a Player' do
       PlayerRepository.save(Player.new(name: 'James', slug: 'james'))

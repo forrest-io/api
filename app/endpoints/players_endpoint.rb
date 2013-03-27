@@ -39,6 +39,13 @@ class PlayersEndpoint < Grape::API
       PlayerRepository.save(player)
     end
 
+    desc 'Update a Player'
+    patch ':slug' do
+      player = PlayerRepository.find_first_by_slug(params[:slug])
+      player.update(params)
+      PlayerRepository.save(player)
+    end
+
     desc 'Delete a Player'
     delete ':slug' do
       player = PlayerRepository.find_first_by_slug(params[:slug])
