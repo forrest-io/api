@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Player do
-  subject { Player.new name: name, email: email, slug: slug }
+  subject { player }
+
+  let(:player) { Player.new name: name, email: email, slug: slug }
   let(:name) { 'Default Player' }
   let(:email) { 'default@forrest.io' }
   let(:slug) { 'default-player' }

@@ -11,6 +11,7 @@ describe PlayersEndpoint do
   describe 'GET /players' do
     it 'returns a list of players' do
       PlayerRepository.save(Player.new(name: 'James'))
+
       get '/players'
       last_response.status.should == 200
       players = JSON.parse(last_response.body)
@@ -21,6 +22,7 @@ describe PlayersEndpoint do
   describe 'GET /players/:slug' do
     it 'returns a Player' do
       PlayerRepository.save(Player.new(name: 'James', slug: 'james'))
+
       get '/players/james'
       last_response.status.should == 200
       player = JSON.parse(last_response.body)
@@ -28,10 +30,10 @@ describe PlayersEndpoint do
     end
 
     it 'returns a 404 when Player does not exist' do
-      get '/players/butters'
+      get '/players/james'
       last_response.status.should == 404
       response = JSON.parse(last_response.body)
-      response['error'].should == "not found: butters"
+      response['error'].should == "not found: james"
     end
   end
 
@@ -40,6 +42,11 @@ describe PlayersEndpoint do
       post '/players', name: 'James'
       last_response.status.should == 201
       last_response.headers["Location"].should == '/players/james'
+
+      get '/players/james'
+      last_response.status.should == 200
+      player = JSON.parse(last_response.body)
+      player['name'].should == 'James'
     end
 
     it 'requires a :name' do
@@ -52,16 +59,20 @@ describe PlayersEndpoint do
 
   describe 'PUT /players/:slug' do
     it 'defines a Player' do
+      get '/players/james'
+      last_response.status.should == 404
+
       put '/players/james', name: 'James'
       last_response.status.should == 200
 
       get '/players/james'
       last_response.status.should == 200
+      player = JSON.parse(last_response.body)
+      player['name'].should == 'James'
     end
 
     it 'overwrites an existing Player with the same slug' do
-      put '/players/james', name: 'James Ottaway', email: 'james@forrest.io'
-      last_response.status.should == 200
+      PlayerRepository.save(Player.new(name: 'James Ottaway', email: 'james@forrest.io', slug: 'james'))
 
       get '/players/james'
       player = JSON.parse(last_response.body)
