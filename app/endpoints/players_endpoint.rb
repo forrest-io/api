@@ -40,6 +40,7 @@ class PlayersEndpoint < Grape::API
     desc 'Delete a Player'
     delete ':slug' do
       player = PlayerRepository.find_first_by_slug(params[:slug])
+      error! "not found: #{params[:slug]}", 404 if player.nil?
       PlayerRepository.delete(player)
     end
   end

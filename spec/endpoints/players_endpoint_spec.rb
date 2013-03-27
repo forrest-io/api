@@ -87,5 +87,13 @@ describe PlayersEndpoint do
       get '/players/james'
       last_response.status.should == 404
     end
+
+    it 'returns a 404 when Player does not exist' do
+      delete '/players/james'
+      last_response.status.should == 404
+
+      response = JSON.parse(last_response.body)
+      response['error'].should == "not found: james"
+    end
   end
 end
