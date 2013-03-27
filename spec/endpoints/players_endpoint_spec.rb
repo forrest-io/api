@@ -57,8 +57,24 @@ describe PlayersEndpoint do
 
       get '/players/james'
       last_response.status.should == 200
+    end
+
+    it 'overwrites an existing Player with the same slug' do
+      put '/players/james', name: 'James Ottaway', email: 'james@forrest.io'
+      last_response.status.should == 200
+
+      get '/players/james'
+      player = JSON.parse(last_response.body)
+      player['name'].should == 'James Ottaway'
+      player['email'].should == 'james@forrest.io'
+
+      put '/players/james', name: 'James'
+      last_response.status.should == 200
+
+      get '/players/james'
       player = JSON.parse(last_response.body)
       player['name'].should == 'James'
+      player['email'].should == nil
     end
 
     it 'requires a :name' do

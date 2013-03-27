@@ -33,6 +33,8 @@ class PlayersEndpoint < Grape::API
       optional :email, type: String
     end
     put ':slug' do
+      player = PlayerRepository.find_first_by_slug(params[:slug])
+      PlayerRepository.delete(player) unless player.nil?
       player = Player.new(params)
       PlayerRepository.save(player)
     end
