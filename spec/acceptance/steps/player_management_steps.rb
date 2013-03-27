@@ -1,7 +1,9 @@
 step "a player named :name exists at :url" do |name, url|
-  resource_for(url).post({ :name => name }.to_json, :content_type => :json)
+  resource_for(url).put(:name => name)
 end
 
-step "the player should have the following details:" do |details|
-  details.should == @json
+step "the player should have the following details:" do |table|
+  table.hashes.first.each do |attribute, value|
+    @json[attribute].should == value
+  end
 end

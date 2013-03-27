@@ -1,13 +1,18 @@
 step "I GET :url" do |url|
-  @json = JSON.parse(resource_for(url).get)
+  @response = resource_for(url).get { |response, request, result| response }
+  @json = JSON.parse(@response)
 end
 
-step "I POST to :url with the following details:" do |url, data|
-  @response = resource_for(url).post(data.to_json, :content_type => :json)
+step "I POST to :url with the following details:" do |url, table|
+  table.hashes.each do |hash|
+    @response = resource_for(url).post(hash)
+  end
 end
 
-step "I PATCH :url with the following details:" do |url, data|
-  @response = resource_for(url).patch(data.to_json, :content_type => :json)
+step "I PATCH :url with the following details:" do |url, table|
+  table.hashes.each do |hash|
+    @response = resource_for(url).patch(hash)
+  end
 end
 
 step "I DELETE :url" do |url|
@@ -15,7 +20,7 @@ step "I DELETE :url" do |url|
 end
 
 step "I should receive a HTTP :code response" do |code|
-  @response.code.should == code
+  @response.code.should == code.to_i
 end
 
 step "the Location header should point to :url" do |url|
