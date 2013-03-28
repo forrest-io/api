@@ -8,4 +8,8 @@ RSpec::Core::RakeTask.new :acceptance do |t|
   t.pattern = 'spec/acceptance/**/*.feature'
 end
 
+desc 'Run the build on Travis CI'
+task :travis => [:spec]
+
 task :default => [:spec, :acceptance]
+

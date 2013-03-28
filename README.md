@@ -1,4 +1,4 @@
-# forrest.io - api
+# forrest.io - api [![Build Status](https://travis-ci.org/forrest-io/api.png?branch=master)](https://travis-ci.org/forrest-io/api)
 
 The core of [forrest.io](http://www.forrest.io) is an open API, built to power the web application, mobile apps and any other inventive solutions to home or office ping pong management.
 

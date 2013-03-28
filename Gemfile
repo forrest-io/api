@@ -9,6 +9,7 @@ gem 'babosa'
 group :development do
   gem 'rake'
   gem 'pry'
+  gem 'travis-lint'
 end
 
 group :test do
