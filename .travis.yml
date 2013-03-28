@@ -3,4 +3,11 @@ rvm:
   - 2.0.0
 services:
   - mongodb
-script: "bundle exec rake travis"
+env:
+  - URL_PREFIX=http://localhost:5000
+before_script:
+  - "bundle exec rake server:start"
+script:
+  - "bundle exec rake travis"
+after_script:
+  - "bundle exec rake server:stop"
