@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'grape'
-gem 'curator'
+gem 'curator', git: 'git://github.com/jamesottaway/curator.git', branch: 'mongo_env_auth'
 gem 'mongo'
 
 gem 'babosa'
