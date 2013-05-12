@@ -1,5 +1,10 @@
 require 'rspec/core/rake_task'
 
+task :default => [:spec, :acceptance]
+
+desc 'Run the build on Travis CI'
+task :travis => [:spec, :acceptance]
+
 desc 'Run RSpec specs'
 RSpec::Core::RakeTask.new :spec
 
@@ -11,7 +16,7 @@ end
 namespace :server do
   desc 'Start Unicorn'
   task :start do
-    raise 'Server already started' if File.exists?('unicorn.pid')
+    raise 'Server already started' if server_up?
     require 'foreman/cli'
     foreman = Foreman::CLI.new
     foreman.start
@@ -19,13 +24,24 @@ namespace :server do
 
   desc 'Stop Unicorn'
   task :stop do
-    pid = File.read('unicorn.pid').strip.to_i
+    raise 'Server already stopped' unless server_up?
     Process.kill('INT', pid)
     puts 'Server stopped'
   end
 end
 
-desc 'Run the build on Travis CI'
-task :travis => [:spec, :acceptance]
+private
 
-task :default => [:spec, :acceptance]
+def server_up?
+  return false unless pidfile_exists?
+  Process.getpgid(pid) rescue return false
+  true
+end
+
+def pidfile_exists?
+  File.exists?('unicorn.pid')
+end
+
+def pid
+  File.read('unicorn.pid').strip.to_i
+end
