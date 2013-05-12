@@ -1,7 +1,7 @@
 require 'rest-client'
 require 'json'
 
-URL_PREFIX = ENV['URL_PREFIX'] || 'http://api.forrest.dev'
+URL_PREFIX = ENV['URL_PREFIX'] || 'http://localhost:5000'
 
 puts URL_PREFIX
 
